@@ -263,7 +263,7 @@ ToDono完了・未完了のステータスはenumで設定します。
 ____
 
 ## ■ ER 図
-https://www.figma.com/design/veiVgpwnVMYtZpfrgpX86T/%E5%8D%92%E5%88%B6%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=hdmEXOIJNg7tO3od-0
+https://www.figma.com/design/veiVgpwnVMYtZpfrgpX86T/%E5%8D%92%E5%88%B6%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=zlcHEWb6V4Vee8tV-0
 
 ### READMEに記載した機能
 - [x] ユーザー登録機能
@@ -294,3 +294,11 @@ https://www.figma.com/design/veiVgpwnVMYtZpfrgpX86T/%E5%8D%92%E5%88%B6%E7%94%BB%
 ### 各画面の作り込み
 画面遷移だけでなく、必要なボタンやフォームが確認できるくらい作り込めているか？
 - [x] 作り込みはある程度完了している（Figmaを見て画面の作成ができる状態にある）
+
+### MVPリリース以降での実装予定
+・イベント・タスク消去時にモーダルウインドウでアラートを出す
+・フッターに利用規約、アプリの使い方、お問い合わせページ、プライバシーポリシーのリンクを作る
+・上記の４点ページを作る
+・ハンバーガーメニューにマイページを実装
+・マイページを作成
+・トップページにこのアプリの使い方の説明をモーダルで作る
