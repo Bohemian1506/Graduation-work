@@ -265,6 +265,9 @@ ____
 ## ■ ER 図
 https://app.diagrams.net/#G1KK_ildaou0_KW8d9aybBkaWl5zoZydG9#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D
 
+スクリーンショット
+[![Image from Gyazo](https://i.gyazo.com/9293d26027232b828338e5ef641f8f2d.png)](https://gyazo.com/9293d26027232b828338e5ef641f8f2d)
+
 ### READMEに記載した機能
 - [x] ユーザー登録機能
 - [x] ログイン機能
