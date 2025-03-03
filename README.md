@@ -263,7 +263,10 @@ ToDono完了・未完了のステータスはenumで設定します。
 ____
 
 ## ■ ER 図
-https://www.figma.com/design/veiVgpwnVMYtZpfrgpX86T/%E5%8D%92%E5%88%B6%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=zlcHEWb6V4Vee8tV-0
+https://app.diagrams.net/#G1KK_ildaou0_KW8d9aybBkaWl5zoZydG9#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D
+
+スクリーンショット
+[![Image from Gyazo](https://i.gyazo.com/9293d26027232b828338e5ef641f8f2d.png)](https://gyazo.com/9293d26027232b828338e5ef641f8f2d)
 
 ### READMEに記載した機能
 - [x] ユーザー登録機能
