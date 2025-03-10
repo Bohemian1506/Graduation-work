@@ -27,8 +27,8 @@ belongs_to :user
   }
 
   enum visibility: {
-    public: 0,      # 全体公開
-    private: 1,     # 非公開（共同幹事のみ）
+    public_event: 0,      # 全体公開
+    private_event: 1,     # 非公開（共同幹事のみ）
     draft: 2        # 下書き（自分だけ）
   }
 end

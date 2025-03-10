@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]  # ログイン済みユーザーのみアクセス可能
+  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!, except: [ :index, :show ]  # ログイン済みユーザーのみアクセス可能
   def index
     @events = Event.all
   end
-  
+
   def show
   end
 
@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: 'イベントが正常に作成されました。'
+      redirect_to @event, notice: "イベントが正常に作成されました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: 'イベントが正常に更新されました。'
+      redirect_to @event, notice: "イベントが正常に更新されました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_url, notice: 'イベントが正常に削除されました。', status: :see_other
+    redirect_to events_url, notice: "イベントが正常に削除されました。", status: :see_other
   end
 
   private

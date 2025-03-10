@@ -62,4 +62,4 @@ end
 gem "devise"
 
 # enum
-gem 'enum_help'
+gem "enum_help"
