@@ -3,6 +3,8 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]  # ログイン済みユーザーのみアクセス可能
   def index
     @events = Event.all
+  end
+  
   def show
   end
 
