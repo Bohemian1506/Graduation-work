@@ -58,4 +58,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# みんな大好き認証機能のgem
 gem "devise"
+
+# enum
+gem "enum_help"
