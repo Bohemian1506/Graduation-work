@@ -19,6 +19,7 @@ ja:
       new_event: "イベント作成"
       my_page: "マイページ"
       settings: "設定"
+      login: "ログイン"
       logout: "ログアウト"
 
   ##############################################################################
@@ -42,7 +43,7 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード（確認）"
-        name: "ユーザー名"
+        username: "ユーザー名"
         remember_me: "ログインを記憶"
       event:
         title: "イベント名"
