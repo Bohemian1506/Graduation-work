@@ -1,2 +1,150 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <!-- イベント情報カード -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+          <div>
+            <h1 class="fs-3 mb-0 fw-bold"><%= @event.title %></h1>
+          </div>
+          <div>
+            <% status_badge_class = case @event.event_status 
+               when 'planning' then 'bg-secondary'
+               when 'preparing' then 'bg-info'
+               when 'recruiting' then 'bg-success'
+               when 'confirmed' then 'bg-primary'
+               when 'completed' then 'bg-dark'
+               when 'canceled' then 'bg-danger'
+               else 'bg-secondary'
+               end %>
+            <span class="badge <%= status_badge_class %> badge-status">
+              <%= @event.event_status_i18n %>
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <!-- 左側：基本情報 -->
+            <div class="col-md-7">
+              <div class="event-meta">
+                <i class="bi bi-calendar-event text-muted"></i>
+                <span>日時: <%= l @event.event_date, format: :long %></span>
+              </div>
+              <div class="event-meta">
+                <i class="bi bi-shop text-muted"></i>
+                <span>場所: <%= @event.store_name %></span>
+              </div>
+              <% if @event.location.present? %>
+                <div class="event-meta">
+                  <i class="bi bi-geo-alt text-muted"></i>
+                  <span>住所: <%= @event.location %></span>
+                </div>
+              <% end %>
+              <div class="event-meta">
+                <i class="bi bi-people text-muted"></i>
+                <span>定員: <%= @event.capacity.present? ? "#{@event.capacity}名" : "未設定" %></span>
+              </div>
+              <div class="event-meta">
+                <i class="bi bi-cash text-muted"></i>
+                <span>会費: <%= @event.party_fee.present? ? "#{number_to_currency(@event.party_fee, unit: '¥', precision: 0)}" : "未設定" %></span>
+              </div>
+              <div class="event-meta">
+                <i class="bi bi-cup-straw text-muted"></i>
+                <span>形式: <%= @event.party_type_i18n %></span>
+              </div>
+              
+              <div class="mt-4">
+                <h5 class="mb-3">共同幹事</h5>
+                <div class="d-flex align-items-center mb-2">
+                  <span class="organizer-name"><%= @event.user.username %>（主幹事）</span>
+                </div>
+                
+                <% if user_signed_in? && current_user.id == @event.user_id %>
+                  <div class="mt-2">
+                    <button class="btn btn-sm btn-outline-primary mb-3">
+                      <i class="bi bi-person-plus me-1"></i>共同幹事を招待
+                    </button>
+                  </div>
+                  <div class="mt-2">
+                    <button class="btn btn-outline-primary" id="copy-button" title="概要をコピー">
+                      <i class="bi bi-clipboard me-1"></i>概要コピー
+                    </button>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            
+            <!-- 右側：メモと操作ボタン部分 -->
+            <div class="col-md-5 d-flex flex-column">
+              <!-- 備考・メモカード（flexコンテナ内で伸縮可能） -->
+              <div class="card flex-grow-1 mb-3">
+                <div class="card-header bg-light py-2">
+                  <h5 class="card-title mb-0">備考・メモ</h5>
+                </div>
+                <div class="card-body">
+                  <% if @event.notes.present? %>
+                    <p class="white-space-pre-line"><%= @event.notes %></p>
+                  <% else %>
+                    <p class="text-muted">メモはありません</p>
+                  <% end %>
+                </div>
+              </div>
+              
+              <!-- 操作ボタン（メモカードの下部に配置） -->
+              <% if user_signed_in? && current_user.id == @event.user_id %>
+                <div class="d-flex justify-content-end">
+                  <%= link_to edit_event_path(@event), class: "btn btn-primary me-2" do %>
+                    <i class="bi bi-pencil me-1"></i>編集
+                  <% end %>
+                  <%= button_to event_path(@event), method: :delete, class: "btn btn-danger", 
+                      form: { data: { turbo_confirm: "このイベントを削除してもよろしいですか？" } } do %>
+                    <i class="bi bi-trash me-1"></i>削除
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TODOリストカードは、今後別の機能として実装予定 -->
+      
+      <!-- 戻るボタン -->
+      <div class="mb-4">
+        <%= link_to events_path, class: "btn btn-outline-secondary" do %>
+          <i class="bi bi-arrow-left me-1"></i>イベント一覧に戻る
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :head do %>
+  <style>
+    .event-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.7rem;
+      font-size: 1.05rem;
+    }
+    .event-meta i {
+      width: 24px;
+      margin-right: 10px;
+      color: #6c757d;
+    }
+    .badge-status {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.7rem;
+      font-weight: 500;
+    }
+    .organizer-name {
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 3px solid #ff7043;
+      line-height: 1.2;
+    }
+    .white-space-pre-line {
+      white-space: pre-line;
+    }
+  </style>
+<% end %>
