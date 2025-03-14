@@ -8,6 +8,7 @@
             <h1 class="fs-3 mb-0 fw-bold"><%= @event.title %></h1>
           </div>
           <div>
+            <!-- ステータスバッジ -->
             <% status_badge_class = case @event.event_status 
                when 'planning' then 'bg-secondary'
                when 'preparing' then 'bg-info'
@@ -52,7 +53,27 @@
                 <i class="bi bi-cup-straw text-muted"></i>
                 <span>形式: <%= @event.party_type_i18n %></span>
               </div>
-              
+
+              <!-- コピーボタン（形式の下に配置） -->
+              <div class="mt-3 mb-4">
+                  <div data-controller="clipboard">
+                    <textarea 
+                      data-clipboard-target="source" 
+                      class="visually-hidden"
+                      readonly><%= @event.formatted_text_for_clipboard %></textarea>
+
+                    <button 
+                      data-action="click->clipboard#copy" 
+                      class="btn btn-outline-primary">
+                      <i class="bi bi-clipboard me-1"></i>イベント情報をコピー
+                    </button>
+                    
+                    <span data-clipboard-target="feedback" 
+                          class="ms-2"
+                          style="display: none;"></span>
+                  </div>
+              </div>
+
               <div class="mt-4">
                 <h5 class="mb-3">共同幹事</h5>
                 <div class="d-flex align-items-center mb-2">
@@ -63,11 +84,6 @@
                   <div class="mt-2">
                     <button class="btn btn-sm btn-outline-primary mb-3">
                       <i class="bi bi-person-plus me-1"></i>共同幹事を招待
-                    </button>
-                  </div>
-                  <div class="mt-2">
-                    <button class="btn btn-outline-primary" id="copy-button" title="概要をコピー">
-                      <i class="bi bi-clipboard me-1"></i>概要コピー
                     </button>
                   </div>
                 <% end %>
