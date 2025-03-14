@@ -74,9 +74,9 @@
           <%= form.label :visibility, "イベントの公開範囲", class: "form-label" %>
           <%= form.select :visibility, Event.visibilities_i18n.invert, {}, { class: "form-select" } %>
           <div class="form-text text-muted">
-            全体公開：すべてのユーザーに公開されます<br>
-            非公開：共同幹事のみ閲覧可能です<br>
-            下書き：自分だけが閲覧できます（作成途中の場合）
+            <%= t('events.form.status.public') %>：<%= t('events.form.visibility_help.public_event') %><br>
+            <%= t('events.form.status.unpublic') %>：<%= t('events.form.visibility_help.private_event') %><br>
+            <%= t('events.form.status.draft') %>：<%= t('events.form.visibility_help.draft') %>
           </div>
         </div>
       </div>
@@ -90,6 +90,6 @@
 
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <%= link_to "キャンセル", events_path, class: "btn btn-secondary me-md-2" %>
-    <%= form.submit "飲み会を作成する", class: "btn btn-primary" %>
+    <%= form.submit event.new_record? ? "飲み会を作成する" : "飲み会を更新する", class: "btn btn-primary" %>
   </div>
 <% end %>
