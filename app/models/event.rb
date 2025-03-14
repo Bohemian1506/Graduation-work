@@ -17,7 +17,7 @@ belongs_to :user
     lines << "形式: #{party_type_i18n}" if party_type.present?
     lines << "" # 空行
     lines << notes if notes.present?
-  
+
     lines.join("\n")
   end
 
