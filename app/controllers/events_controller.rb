@@ -1,12 +1,12 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_event, only: [ :show ] # 誰でも見れる
   before_action :authenticate_user!, except: [ :index, :show ]  # ログイン済みユーザーのみアクセス可能
+  before_action :set_own_event, only: [ :edit, :update, :destroy ]  # 所有者のみ操作可能
   def index
     @events = Event.all
   end
 
   def show
-    @event = Event.find(params[:id])
     @clipboard_text = @event.formatted_text_for_clipboard
   end
 
@@ -18,7 +18,7 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
 
     if @event.save
-      redirect_to @event, notice: "イベントが正常に作成されました。"
+      redirect_to @event, notice:  t("flash.events.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: "イベントが正常に更新されました。"
+      redirect_to @event, notice: t("flash.events.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,13 +37,22 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
-    redirect_to events_url, notice: "イベントが正常に削除されました。", status: :see_other
+    redirect_to events_url, notice: t("flash.events.deleted"), status: :see_other
   end
 
   private
 
   def set_event
     @event = Event.find(params[:id])
+  end
+
+  def set_own_event
+    @event = current_user.events.find_by(id: params[:id])
+
+    unless @event
+      redirect_to events_path, alert: "このイベントを編集する権限がありません。"
+      nil
+    end
   end
 
   def event_params
