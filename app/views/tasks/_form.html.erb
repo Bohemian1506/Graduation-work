@@ -1,8 +1,7 @@
-<%= form_with(model: task) do |form| %>
+<%= form_with(model: [@event, task]) do |form| %>
   <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4><%= pluralize(task.errors.count, "個") %>のエラーがあります:</h4>
       <ul>
         <% task.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,32 +10,29 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="form-group mb-3">
+    <%= form.label :title, "タイトル", class: "form-label" %>
+    <span class="text-danger">*</span>
+    <%= form.text_field :title, class: "form-control", placeholder: "例: 参加者リストの作成" %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+  <div class="form-group mb-3">
+    <%= form.label :description, "説明", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 3, placeholder: "タスクの詳細や備考" %>
   </div>
 
-  <div>
-    <%= form.label :due_date, style: "display: block" %>
-    <%= form.datetime_field :due_date %>
+  <div class="form-group mb-3">
+    <%= form.label :due_date, "期限日", class: "form-label" %>
+    <%= form.datetime_local_field :due_date, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :task_status, style: "display: block" %>
-    <%= form.number_field :task_status %>
+  <div class="form-group mb-3">
+    <%= form.label :task_status, "ステータス", class: "form-label" %>
+    <%= form.select :task_status, Task.task_statuses_i18n.invert, {}, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :event_id, style: "display: block" %>
-    <%= form.text_field :event_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <%= link_to "キャンセル", event_path(@event), class: "btn btn-secondary me-md-2" %>
+    <%= form.submit "保存する", class: "btn btn-primary" %>
   </div>
 <% end %>
