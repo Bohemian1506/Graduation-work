@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
 belongs_to :user
+has_many :tasks, dependent: :destroy
 
   # バリデーション
   validates :title, presence: true
