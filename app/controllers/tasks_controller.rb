@@ -2,12 +2,12 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
   before_action :set_task, only: %i[ edit update destroy ]
-  
 
-  
+
+
 
   # index・showアクションはいらない（今回taskはeventのviewファイル内でひょうじするため）
-  
+
 
   def new
     @task = @event.tasks.new
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.save
       # モデルメソッドを使って担当者を設定
       @task.assign_users(params[:task][:user_ids])
-      redirect_to @event, notice: t('flash.tasks.created')
+      redirect_to @event, notice: t("flash.tasks.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       # モデルメソッドを使って担当者を設定
       @task.assign_users(params[:task][:user_ids])
-      redirect_to @event, notice: t('flash.tasks.updated')
+      redirect_to @event, notice: t("flash.tasks.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to @event, notice: t('flash.tasks.deleted'), status: :see_other
+    redirect_to @event, notice: t("flash.tasks.deleted"), status: :see_other
   end
 
   private

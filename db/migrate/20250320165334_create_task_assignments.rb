@@ -8,6 +8,6 @@ class CreateTaskAssignments < ActiveRecord::Migration[7.2]
     end
 
     # 同じタスクに同じユーザーが複数回割り当てられないようにするためのインデックス
-    add_index :task_assignments, [:task_id, :user_id], unique: true
+    add_index :task_assignments, [ :task_id, :user_id ], unique: true
   end
 end
