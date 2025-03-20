@@ -5,7 +5,7 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
 
-  # enum定義(完了か未完了を定義しています) 
+  # enum定義(完了か未完了を定義しています)
   enum task_status: {
     unfinished: 0,   # 未完了
     finished: 1      # 完了済み
@@ -19,7 +19,7 @@ class Task < ApplicationRecord
   # タスクの担当者の名前を表示するメソッド（複数人いる場合はカンマ区切り）
   def assignee_names
     if has_assignees?
-      users.pluck(:username).join(', ')
+      users.pluck(:username).join(", ")
     else
       "未割当"
     end
@@ -28,10 +28,10 @@ class Task < ApplicationRecord
   # 担当者をセットするメソッド
   def assign_users(user_ids)
     return unless user_ids.present?
-    
+
     # 現在の担当者を一旦削除
     task_assignments.destroy_all
-    
+
     # 新しい担当者を設定
     user_ids.each do |user_id|
       next if user_id.blank?
