@@ -20,6 +20,8 @@ class TasksController < ApplicationController
     @task = @event.tasks.new(task_params)
 
     if @task.save
+      # モデルメソッドを使って担当者を設定
+      @task.assign_users(params[:task][:user_ids])
       redirect_to @event, notice: t('flash.tasks.created')
     else
       render :new, status: :unprocessable_entity
@@ -28,6 +30,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      # モデルメソッドを使って担当者を設定
+      @task.assign_users(params[:task][:user_ids])
       redirect_to @event, notice: t('flash.tasks.updated')
     else
       render :edit, status: :unprocessable_entity
