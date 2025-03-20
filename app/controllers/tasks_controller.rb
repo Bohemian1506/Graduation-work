@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
   before_action :set_task, only: %i[ edit update destroy ]
-
+  before_action :check_event_owner, except: [:index, :show]  # 追加行 
   
 
   # index・showアクションはいらない（今回taskはeventのviewファイル内でひょうじするため）
@@ -50,5 +50,12 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :description, :task_status, :due_date)
+    end
+
+    def check_event_owner
+      unless current_user.id == @event.user_id
+        redirect_to @event, alert: "このイベントのTODOを編集する権限がありません"
+        return
+      end
     end
 end
