@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
   devise_for :users
-  resources :posts
   resources :events
   resources :events do
     resources :tasks, except: [:index, :show]
