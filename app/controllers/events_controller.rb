@@ -7,6 +7,9 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
+    @unfinished_tasks = @event.tasks.unfinished
+    @finished_tasks = @event.tasks.finished
     @clipboard_text = @event.formatted_text_for_clipboard
   end
 

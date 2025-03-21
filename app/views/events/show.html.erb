@@ -151,8 +151,8 @@
           <div class="tab-content" id="todoTabContent">
             <!-- 未完了TODOリスト -->
             <div class="tab-pane fade show active" id="unfinished" role="tabpanel">
-              <% if @event.tasks.unfinished.any? %>
-                <% @event.tasks.unfinished.each do |task| %>
+              <% if @unfinished_tasks.any? %>
+                <%@unfinished_tasks.each do |task| %>
                   <div class="todo-item unfinished mt-3">
                     <div class="todo-header">
                       <div class="form-check">
@@ -200,8 +200,8 @@
             </div>
             <!-- 完了済みTODOリスト -->
             <div class="tab-pane fade" id="finished" role="tabpanel">
-              <% if @event.tasks.finished.any? %>
-                <% @event.tasks.finished.each do |task| %>
+              <% if @finished_tasks.any? %>
+                <% @finished_tasks.each do |task| %>
                   <div class="todo-item finished mt-3">
                     <div class="todo-header">
                       <div class="form-check">
