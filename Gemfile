@@ -63,3 +63,6 @@ gem "devise"
 
 # enum
 gem "enum_help"
+
+# viewファイルのリファクタリング用
+gem "view_component"
