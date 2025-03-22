@@ -1,1 +1,17 @@
-<div>Add Events::Info::CopyButton template here</div>
+<!-- コピーボタン（形式の下に配置） -->
+<div data-controller="clipboard">
+  <textarea 
+    data-clipboard-target="source" 
+    class="visually-hidden"
+    readonly><%= @event.formatted_text_for_clipboard %></textarea>
+
+  <button 
+    data-action="click->clipboard#copy" 
+    class="btn btn-outline-primary">
+    <i class="bi bi-clipboard me-1"></i>イベント情報をコピー
+  </button>
+  
+  <span data-clipboard-target="feedback" 
+        class="ms-2"
+        style="display: none;"></span>
+</div>

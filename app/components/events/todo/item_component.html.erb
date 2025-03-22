@@ -1,1 +1,42 @@
-<div>Add Events::Todo::Item template here</div>
+<div class="todo-item <%= @task.finished? ? 'finished' : 'unfinished' %> mt-3">
+  <div class="todo-header">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="task_<%= @task.id %>" data-task-id="<%= @task.id %>" <%= @task.finished? ? 'checked' : '' %>>
+      <label class="form-check-label <%= @task.finished? ? '' : 'fw-bold' %>" for="task_<%= @task.id %>">
+        <%= @task.title %>
+      </label>
+    </div>
+    <div class="task-actions">
+      <% if @current_user&.id == @event.user_id %>
+        <%= link_to edit_event_task_path(@event, @task), class: "btn btn-sm btn-outline-primary me-1" do %>
+          <i class="bi bi-pencil"></i>
+        <% end %>
+        <%= button_to event_task_path(@event, @task), method: :delete,
+          form: { data: { turbo_confirm: "このタスクを削除してもよろしいですか？" },
+                  class: "d-inline-block" },
+          class: "btn btn-sm btn-outline-danger" do %>
+          <i class="bi bi-trash"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="ps-4 mt-2 text-muted">
+    <% if @task.description.present? %>
+      <p class="mb-1"><%= @task.description %></p>
+    <% end %>
+    <div class="d-flex align-items-center">
+      <small class="me-3">
+        <i class="bi bi-person me-1"></i>担当: <%= @task.assignee_names %>
+      </small>
+      <% if @task.finished? %>
+        <small>
+          <i class="bi bi-check-circle me-1 text-success"></i>完了: <%= l @task.updated_at, format: :short %>
+        </small>
+      <% elsif @task.due_date.present? %>
+        <small>
+          <i class="bi bi-clock me-1"></i>期限: <%= l @task.due_date, format: :short %>
+        </small>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,50 @@
-<div>Add Events::Todo::List template here</div>
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+    <h2 class="fs-4 mb-0 fw-bold">TODO管理</h2>
+    <% if @current_user&.id == @event.user_id %>
+      <%= link_to new_event_task_path(@event), class: "btn btn-primary btn-sm" do %>
+        <i class="bi bi-plus me-1"></i>新規TODOを追加
+      <% end %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <ul class="nav nav-tabs" id="todoTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="unfinished-tab" data-bs-toggle="tab" data-bs-target="#unfinished" type="button" role="tab">
+          未完了 <span class="badge bg-secondary rounded-pill ms-1"><%= @event.tasks.unfinished.count %></span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="finished-tab" data-bs-toggle="tab" data-bs-target="#finished" type="button" role="tab">
+          完了済み <span class="badge bg-secondary rounded-pill ms-1"><%= @event.tasks.finished.count %></span>
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="todoTabContent">
+      <!-- 未完了TODOリスト -->
+      <div class="tab-pane fade show active" id="unfinished" role="tabpanel">
+        <% if @unfinished_tasks.any? %>
+          <% @unfinished_tasks.each do |task| %>
+            <%= render(Events::Todo::ItemComponent.new(task: task, event: @event, current_user: @current_user)) %>
+          <% end %>
+        <% else %>
+          <div class="text-center my-4 text-muted">
+            <p>未完了のタスクはありません</p>
+          </div>
+        <% end %>
+      </div>
+      <!-- 完了済みTODOリスト -->
+      <div class="tab-pane fade" id="finished" role="tabpanel">
+        <% if @finished_tasks.any? %>
+          <% @finished_tasks.each do |task| %>
+            <%= render(Events::Todo::ItemComponent.new(task: task, event: @event, current_user: @current_user)) %>
+          <% end %>
+        <% else %>
+          <div class="text-center my-4 text-muted">
+            <p>完了済みのタスクはありません</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

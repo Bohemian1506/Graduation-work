@@ -1,1 +1,27 @@
-<div>Add Events::Info::BasicInfo template here</div>
+<!-- 左側：基本情報 -->
+<div class="event-meta">
+  <i class="bi bi-calendar-event text-muted"></i>
+  <span>日時: <%= l @event.event_date, format: :long %></span>
+</div>
+<div class="event-meta">
+  <i class="bi bi-shop text-muted"></i>
+  <span>場所: <%= @event.store_name %></span>
+</div>
+<% if @event.location.present? %>
+  <div class="event-meta">
+    <i class="bi bi-geo-alt text-muted"></i>
+    <span>住所: <%= @event.location %></span>
+  </div>
+<% end %>
+<div class="event-meta">
+  <i class="bi bi-people text-muted"></i>
+  <span>定員: <%= @event.capacity.present? ? "#{@event.capacity}名" : "未設定" %></span>
+</div>
+<div class="event-meta">
+  <i class="bi bi-cash text-muted"></i>
+  <span>会費: <%= @event.party_fee.present? ? "#{number_to_currency(@event.party_fee, unit: '¥', precision: 0)}" : "未設定" %></span>
+</div>
+<div class="event-meta">
+  <i class="bi bi-cup-straw text-muted"></i>
+  <span>形式: <%= @event.party_type_i18n %></span>
+</div>

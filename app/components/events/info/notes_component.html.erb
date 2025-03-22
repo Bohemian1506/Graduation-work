@@ -1,1 +1,12 @@
-<div>Add Events::Info::Notes template here</div>
+<div class="card flex-grow-1 mb-3">
+  <div class="card-header bg-light py-2">
+    <h5 class="card-title mb-0">備考・メモ</h5>
+  </div>
+  <div class="card-body">
+    <% if @event.notes.present? %>
+      <p class="white-space-pre-line"><%= @event.notes %></p>
+    <% else %>
+      <p class="text-muted">メモはありません</p>
+    <% end %>
+  </div>
+</div>
