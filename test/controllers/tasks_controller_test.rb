@@ -17,13 +17,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create task" do
     assert_difference("Task.count") do
-      post event_tasks_url(@event), params: { 
-        task: { 
-          description: @task.description, 
-          due_date: @task.due_date, 
-          task_status: @task.task_status, 
-          title: "New Test Task" 
-        } 
+      post event_tasks_url(@event), params: {
+        task: {
+          description: @task.description,
+          due_date: @task.due_date,
+          task_status: @task.task_status,
+          title: "New Test Task"
+        }
       }
     end
 
@@ -36,13 +36,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update task" do
-    patch event_task_url(@event, @task), params: { 
-      task: { 
-        description: @task.description, 
-        due_date: @task.due_date, 
-        task_status: @task.task_status, 
-        title: @task.title 
-      } 
+    patch event_task_url(@event, @task), params: {
+      task: {
+        description: @task.description,
+        due_date: @task.due_date,
+        task_status: @task.task_status,
+        title: @task.title
+      }
     }
     assert_redirected_to event_url(@event)  # リダイレクト先を確認
   end

@@ -9,10 +9,10 @@ class Events::Info::NotesComponentTest < ViewComponent::TestCase
       id: 1,
       title: "テストイベント",
       event_date: Time.now,
-      store_name: "テストストア"
+      store_name: "テストストア",
       user_id: 1
     )
-    
+
     render_inline(Events::Info::BasicInfoComponent.new(event: event))
     # アサーションを書く
   end
