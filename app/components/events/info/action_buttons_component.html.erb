@@ -1,11 +1,12 @@
-<% if user_signed_in? && current_user.id == @event.user_id %>
-  <div class="d-flex justify-content-end">
-    <%= link_to edit_event_path(@event), class: "btn btn-primary me-2" do %>
-      <i class="bi bi-pencil me-1"></i>編集
-    <% end %>
-    <%= button_to event_path(@event), method: :delete, class: "btn btn-danger", 
-        form: { data: { turbo_confirm: "このイベントを削除してもよろしいですか？" } } do %>
-      <i class="bi bi-trash me-1"></i>削除
-    <% end %>
-  </div>
-<% end %>
+<div class="d-flex justify-content-end">
+  <%= link_to edit_event_path(event), class: "btn btn-primary me-2" do %>
+    <i class="bi bi-pencil me-1"></i>編集
+  <% end %>
+  
+  <%= button_to event_path(event), 
+                method: :delete, 
+                class: "btn btn-danger", 
+                form: { data: { turbo_confirm: confirm_message } } do %>
+    <i class="bi bi-trash me-1"></i>削除
+  <% end %>
+</div>
