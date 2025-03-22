@@ -8,246 +8,33 @@
             <h1 class="fs-3 mb-0 fw-bold"><%= @event.title %></h1>
           </div>
           <div>
-            <!-- ステータスバッジ -->
-            <% status_badge_class = case @event.event_status 
-               when 'planning' then 'bg-secondary'
-               when 'preparing' then 'bg-info'
-               when 'recruiting' then 'bg-success'
-               when 'confirmed' then 'bg-primary'
-               when 'completed' then 'bg-dark'
-               when 'canceled' then 'bg-danger'
-               else 'bg-secondary'
-               end %>
-            <span class="badge <%= status_badge_class %> badge-status">
-              <%= @event.event_status_i18n %>
-            </span>
+            <%= render(Events::Info::StatusBadgeComponent.new(event: @event)) %>
           </div>
         </div>
         <div class="card-body">
           <div class="row">
             <!-- 左側：基本情報 -->
             <div class="col-md-7">
-              <div class="event-meta">
-                <i class="bi bi-calendar-event text-muted"></i>
-                <span>日時: <%= l @event.event_date, format: :long %></span>
-              </div>
-              <div class="event-meta">
-                <i class="bi bi-shop text-muted"></i>
-                <span>場所: <%= @event.store_name %></span>
-              </div>
-              <% if @event.location.present? %>
-                <div class="event-meta">
-                  <i class="bi bi-geo-alt text-muted"></i>
-                  <span>住所: <%= @event.location %></span>
-                </div>
-              <% end %>
-              <div class="event-meta">
-                <i class="bi bi-people text-muted"></i>
-                <span>定員: <%= @event.capacity.present? ? "#{@event.capacity}名" : "未設定" %></span>
-              </div>
-              <div class="event-meta">
-                <i class="bi bi-cash text-muted"></i>
-                <span>会費: <%= @event.party_fee.present? ? "#{number_to_currency(@event.party_fee, unit: '¥', precision: 0)}" : "未設定" %></span>
-              </div>
-              <div class="event-meta">
-                <i class="bi bi-cup-straw text-muted"></i>
-                <span>形式: <%= @event.party_type_i18n %></span>
-              </div>
-
-              <!-- コピーボタン（形式の下に配置） -->
-              <div class="mt-3 mb-4">
-                  <div data-controller="clipboard">
-                    <textarea 
-                      data-clipboard-target="source" 
-                      class="visually-hidden"
-                      readonly><%= @event.formatted_text_for_clipboard %></textarea>
-
-                    <button 
-                      data-action="click->clipboard#copy" 
-                      class="btn btn-outline-primary">
-                      <i class="bi bi-clipboard me-1"></i>イベント情報をコピー
-                    </button>
-                    
-                    <span data-clipboard-target="feedback" 
-                          class="ms-2"
-                          style="display: none;"></span>
-                  </div>
-              </div>
-
-              <!-- 共同幹事の招待ボタン
-              <div class="mt-4">
-                <h5 class="mb-3">共同幹事</h5>
-                <div class="d-flex align-items-center mb-2">
-                  <span class="organizer-name"><%= @event.user.username %>（主幹事）</span>
-                </div>
-                
-                <% if user_signed_in? && current_user.id == @event.user_id %>
-                  <div class="mt-2">
-                    <button class="btn btn-sm btn-outline-primary mb-3">
-                      <i class="bi bi-person-plus me-1"></i>共同幹事を招待
-                    </button>
-                  </div>
-                <% end %>
-              </div>
-              -->
+              <%= render(Events::Info::BasicInfoComponent.new(event: @event)) %>
+              
+              <!-- コピーボタン -->
+              <%= render(Events::Info::CopyButtonComponent.new(event: @event)) %>
             </div>
             
             <!-- 右側：メモと操作ボタン部分 -->
             <div class="col-md-5 d-flex flex-column">
-              <!-- 備考・メモカード（flexコンテナ内で伸縮可能） -->
-              <div class="card flex-grow-1 mb-3">
-                <div class="card-header bg-light py-2">
-                  <h5 class="card-title mb-0">備考・メモ</h5>
-                </div>
-                <div class="card-body">
-                  <% if @event.notes.present? %>
-                    <p class="white-space-pre-line"><%= @event.notes %></p>
-                  <% else %>
-                    <p class="text-muted">メモはありません</p>
-                  <% end %>
-                </div>
-              </div>
+              <!-- 備考・メモカード -->
+              <%= render(Events::Info::NotesComponent.new(event: @event)) %>
               
-              <!-- 操作ボタン（メモカードの下部に配置） -->
-              <% if user_signed_in? && current_user.id == @event.user_id %>
-                <div class="d-flex justify-content-end">
-                  <%= link_to edit_event_path(@event), class: "btn btn-primary me-2" do %>
-                    <i class="bi bi-pencil me-1"></i>編集
-                  <% end %>
-                  <%= button_to event_path(@event), method: :delete, class: "btn btn-danger", 
-                      form: { data: { turbo_confirm: "このイベントを削除してもよろしいですか？" } } do %>
-                    <i class="bi bi-trash me-1"></i>削除
-                  <% end %>
-                </div>
-              <% end %>
+              <!-- 操作ボタン -->
+              <%= render(Events::Info::ActionButtonsComponent.new(event: @event, current_user: current_user)) %>
             </div>
           </div>
         </div>
       </div>
       
       <!-- TODOリストカード -->
-      <div class="card mb-4 shadow-sm">
-        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
-          <h2 class="fs-4 mb-0 fw-bold">TODO管理</h2>
-          <% if user_signed_in? && current_user.id == @event.user_id %>
-            <%= link_to new_event_task_path(@event), class: "btn btn-primary btn-sm" do %>
-              <i class="bi bi-plus me-1"></i>新規TODOを追加
-            <% end %>
-          <% end %>
-        </div>
-        <div class="card-body">
-          <ul class="nav nav-tabs" id="todoTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="unfinished-tab" data-bs-toggle="tab" data-bs-target="#unfinished" type="button" role="tab">
-                未完了 <span class="badge bg-secondary rounded-pill ms-1"><%= @event.tasks.unfinished.count %></span>
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="finished-tab" data-bs-toggle="tab" data-bs-target="#finished" type="button" role="tab">
-                完了済み <span class="badge bg-secondary rounded-pill ms-1"><%= @event.tasks.finished.count %></span>
-              </button>
-            </li>
-          </ul>
-          <div class="tab-content" id="todoTabContent">
-            <!-- 未完了TODOリスト -->
-            <div class="tab-pane fade show active" id="unfinished" role="tabpanel">
-              <% if @unfinished_tasks.any? %>
-                <%@unfinished_tasks.each do |task| %>
-                  <div class="todo-item unfinished mt-3">
-                    <div class="todo-header">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="task_<%= task.id %>" data-task-id="<%= task.id %>">
-                        <label class="form-check-label fw-bold" for="task_<%= task.id %>">
-                          <%= task.title %>
-                        </label>
-                      </div>
-                      <div class="task-actions">
-                        <% if user_signed_in? && current_user.id == @event.user_id %>
-                          <%= link_to edit_event_task_path(@event, task), class: "btn btn-sm btn-outline-primary me-1" do %>
-                            <i class="bi bi-pencil"></i>
-                          <% end %>
-                          <%= button_to event_task_path(@event, task), method: :delete,
-                            form: { data: { turbo_confirm: "このタスクを削除してもよろしいですか？" },
-                                    class: "d-inline-block" },
-                            class: "btn btn-sm btn-outline-danger" do %>
-                            <i class="bi bi-trash"></i>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>
-                    <div class="ps-4 mt-2 text-muted">
-                      <% if task.description.present? %>
-                        <p class="mb-1"><%= task.description %></p>
-                      <% end %>
-                      <div class="d-flex align-items-center">
-                        <small class="me-3">
-                          <i class="bi bi-person me-1"></i>担当: <%= task.assignee_names %>
-                        </small>
-                        <% if task.due_date.present? %>
-                          <small>
-                            <i class="bi bi-clock me-1"></i>期限: <%= l task.due_date, format: :short %>
-                          </small>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              <% else %>
-                <div class="text-center my-4 text-muted">
-                  <p>未完了のタスクはありません</p>
-                </div>
-              <% end %>
-            </div>
-            <!-- 完了済みTODOリスト -->
-            <div class="tab-pane fade" id="finished" role="tabpanel">
-              <% if @finished_tasks.any? %>
-                <% @finished_tasks.each do |task| %>
-                  <div class="todo-item finished mt-3">
-                    <div class="todo-header">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="task_<%= task.id %>" data-task-id="<%= task.id %>" checked>
-                        <label class="form-check-label" for="task_<%= task.id %>">
-                          <%= task.title %>
-                        </label>
-                      </div>
-                      <div class="task-actions">
-                        <% if user_signed_in? && current_user.id == @event.user_id %>
-                          <%= link_to edit_event_task_path(@event, task), class: "btn btn-sm btn-outline-primary me-1" do %>
-                            <i class="bi bi-pencil"></i>
-                          <% end %>
-                          <%= button_to event_task_path(@event, task), method: :delete, 
-                              form: { data: { turbo_confirm: "このタスクを削除してもよろしいですか？" },
-                                      class: "d-inline-block" },
-                              class: "btn btn-sm btn-outline-danger" do %>
-                            <i class="bi bi-trash"></i>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>
-                    <div class="ps-4 mt-2 text-muted">
-                      <% if task.description.present? %>
-                        <p class="mb-1"><%= task.description %></p>
-                      <% end %>
-                      <div class="d-flex align-items-center">
-                        <small class="me-3">
-                          <i class="bi bi-person me-1"></i>担当: <%= task.assignee_names %>
-                        </small>
-                        <small>
-                          <i class="bi bi-check-circle me-1 text-success"></i>完了: <%= l task.updated_at, format: :short %>
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              <% else %>
-                <div class="text-center my-4 text-muted">
-                  <p>完了済みのタスクはありません</p>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render(Events::Todo::ListComponent.new(event: @event, current_user: current_user)) %>
       
       <!-- 戻るボタン -->
       <div class="mb-4">
@@ -258,33 +45,3 @@
     </div>
   </div>
 </div>
-
-<% content_for :head do %>
-  <style>
-    .event-meta {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.7rem;
-      font-size: 1.05rem;
-    }
-    .event-meta i {
-      width: 24px;
-      margin-right: 10px;
-      color: #6c757d;
-    }
-    .badge-status {
-      font-size: 0.85rem;
-      padding: 0.5rem 0.7rem;
-      font-weight: 500;
-    }
-    .organizer-name {
-      font-weight: 500;
-      padding-left: 10px;
-      border-left: 3px solid #ff7043;
-      line-height: 1.2;
-    }
-    .white-space-pre-line {
-      white-space: pre-line;
-    }
-  </style>
-<% end %>

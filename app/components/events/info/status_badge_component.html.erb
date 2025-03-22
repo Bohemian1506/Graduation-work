@@ -1,1 +1,16 @@
-<div>Add Events::Info::StatusBadge template here</div>
+<!-- ステータスバッジ -->
+<% 
+  status_badge_class = case @event.event_status 
+    when 'planning' then 'bg-secondary'
+    when 'preparing' then 'bg-info'
+    when 'recruiting' then 'bg-success'
+    when 'confirmed' then 'bg-primary'
+    when 'completed' then 'bg-dark'
+    when 'canceled' then 'bg-danger'
+    else 'bg-secondary'
+  end 
+%>
+            
+<span class="badge <%= status_badge_class %> badge-status">
+  <%= @event.event_status_i18n %>
+</span>
