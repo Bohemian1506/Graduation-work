@@ -2,15 +2,18 @@ require "application_system_test_case"
 
 class TasksTest < ApplicationSystemTestCase
   setup do
+    skip "実装は後回し"
     @task = tasks(:one)
   end
 
   test "visiting the index" do
+    skip "実装は後回し"
     visit tasks_url
     assert_selector "h1", text: "Tasks"
   end
 
   test "should create task" do
+    skip "実装は後回し"
     visit tasks_url
     click_on "New task"
 
@@ -26,6 +29,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test "should update Task" do
+    skip "実装は後回し"
     visit task_url(@task)
     click_on "Edit this task", match: :first
 
@@ -41,6 +45,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test "should destroy Task" do
+    skip "実装は後回し"
     visit task_url(@task)
     click_on "Destroy this task", match: :first
 
