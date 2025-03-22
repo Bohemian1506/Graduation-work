@@ -5,7 +5,7 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
 
-  # enum定義(完了か未完了を定義しています)
+  # enum定義(完了か未完了を定義)
   enum task_status: {
     unfinished: 0,   # 未完了
     finished: 1      # 完了済み

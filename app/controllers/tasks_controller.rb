@@ -4,11 +4,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ edit update destroy ]
   before_action :check_event_owner, except: [ :index, :show ]
 
-
-
-
   # index・showアクションはいらない（今回taskはeventのviewファイル内でひょうじするため）
-
 
   def new
     @task = @event.tasks.new
