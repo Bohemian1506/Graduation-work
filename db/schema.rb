@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_20_165334) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_22_141129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,12 +37,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_20_165334) do
   end
 
   create_table "task_assignments", force: :cascade do |t|
-    t.bigint "task_id", null: false
+    t.bigint "assignable_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["task_id", "user_id"], name: "index_task_assignments_on_task_id_and_user_id", unique: true
-    t.index ["task_id"], name: "index_task_assignments_on_task_id"
+    t.string "assignable_type", null: false
+    t.index ["assignable_id", "assignable_type", "user_id"], name: "index_assignments_on_assignable_and_user", unique: true
+    t.index ["assignable_id", "user_id"], name: "index_task_assignments_on_assignable_id_and_user_id", unique: true
+    t.index ["assignable_id"], name: "index_task_assignments_on_assignable_id"
     t.index ["user_id"], name: "index_task_assignments_on_user_id"
   end
 
@@ -72,7 +74,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_20_165334) do
   end
 
   add_foreign_key "events", "users"
-  add_foreign_key "task_assignments", "tasks"
+  add_foreign_key "task_assignments", "tasks", column: "assignable_id"
   add_foreign_key "task_assignments", "users"
   add_foreign_key "tasks", "events"
 end

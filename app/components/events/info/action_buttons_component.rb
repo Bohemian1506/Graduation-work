@@ -6,7 +6,7 @@ module Events
         @event = event
         @current_user = current_user
       end
-      
+
       def render?
         current_user && current_user.id == event.user_id
       end
@@ -17,4 +17,3 @@ module Events
     end
   end
 end
-
