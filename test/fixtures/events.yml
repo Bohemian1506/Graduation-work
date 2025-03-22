@@ -4,8 +4,18 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  id: 1
+  title: "テストイベント1"
+  event_date: <%= Time.new(2024, 1, 1) %>
+  store_name: "テストストア1"
+  user: one
 # column: value
 #
-two: {}
+two:
+  id: 2
+  title: "テストイベント2"
+  event_date: <%= Time.new(2024, 1, 1) %>
+  store_name: "テストストア2"
+  user: two
 # column: value
