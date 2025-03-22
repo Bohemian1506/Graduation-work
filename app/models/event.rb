@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-   include EventEnums
+  include EventEnums
 
 belongs_to :user
 has_many :tasks, dependent: :destroy
