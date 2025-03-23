@@ -12,7 +12,26 @@
         <input type="text" class="search-input" placeholder="イベントを検索...">
       </form>
       
-      <!-- ハンバーガーメニューはこの今後実装予定 -->
+      <!-- ハンバーガーメニューボタン -->
+      <button class="navbar-toggler hamburger-menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- ドロップダウンメニュー -->
+      <div class="collapse navbar-collapse dropdown-menu-container" id="navbarDropdown">
+        <ul class="navbar-nav ms-auto dropdown-menu">
+          <li class="nav-item dropdown-menu-item">
+            <%= link_to "イベント一覧", events_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item dropdown-menu-item">
+            <%= link_to "イベント作成", new_event_path, class: "nav-link" %>
+          </li>
+          <li class="dropdown-divider"></li>
+          <li class="nav-item dropdown-menu-item">
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link", form: { data: { turbo: true } } %>
+          </li>
+        </ul>
+      </div>
 
     <% else %>
       <%= link_to "ログイン", new_user_session_path, class: "login-button" %>
