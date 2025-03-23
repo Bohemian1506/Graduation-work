@@ -1,3 +1,4 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
-@import 'components/events';
+@use 'bootstrap/scss/bootstrap' as bootstrap;
+@use 'bootstrap-icons/font/bootstrap-icons' as bootstrap-icons;
+@use 'components/events';
+@use 'components/header';

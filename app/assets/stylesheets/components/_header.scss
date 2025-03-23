@@ -1,0 +1,93 @@
+/* ヘッダー共通スタイル */
+.header {
+	background-color: white;
+	height: 60px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: relative;
+	z-index: 100;
+}
+
+.header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	padding: 0 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo a {
+	text-decoration: none;
+}
+
+.logo h1 {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #3490dc;
+}
+
+/* 未ログイン時のスタイル */
+.header-not-logged-in .header-container {
+	justify-content: space-between;
+}
+
+.login-button {
+	background-color: #3490dc;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 8px 16px;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.3s;
+}
+
+.login-button:hover {
+	background-color: #2779bd;
+}
+
+/* ログイン済みのスタイル - 修正版 */
+.header-logged-in .header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search-form {
+	position: relative;
+	width: 40%;
+	/* 幅を固定 */
+	margin: 0 auto;
+	/* 中央配置 */
+}
+
+.search-input {
+	width: 100%;
+	padding: 8px 12px;
+	padding-left: 36px;
+	border: 1px solid #e2e8f0;
+	border-radius: 4px;
+	font-size: 0.875rem;
+	transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+	outline: none;
+	border-color: #3490dc;
+	box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.25);
+}
+
+.search-icon {
+	position: absolute;
+	left: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #a0aec0;
+}
