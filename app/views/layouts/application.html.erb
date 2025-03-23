@@ -18,6 +18,7 @@
   </head>
 
   <body>
+    <%= render(Shared::HeaderComponent.new(current_user: current_user)) %>
     <div class="container">
       <% if notice %>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
