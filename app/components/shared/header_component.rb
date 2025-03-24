@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Shared::HeaderComponent < ViewComponent::Base
-    def initialize(current_user: nil)
+    def initialize(current_user: nil, q: nil)
     @current_user = current_user
+    @q = q
   end
 
   def logged_in?

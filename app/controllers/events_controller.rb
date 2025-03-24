@@ -3,7 +3,8 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]  # ログイン済みユーザーのみアクセス可能
   before_action :set_own_event, only: [ :edit, :update, :destroy ]  # 所有者のみ操作可能
   def index
-    @events = Event.all
+    @q = Event.ransack(params[:q])
+    @events = @q.result(distinct: true)
   end
 
   def show
