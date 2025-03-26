@@ -1,7 +1,12 @@
 <div class="container mt-4">
   <div class="row mb-4">
     <div class="col-md-12">
-      <h1><%= t('events.index.title') %></h1>
+      <% if params[:q].present? && params[:q][:title_cont].present? %>
+        <h1>"<%= params[:q][:title_cont] %>" の検索結果</h1>
+        <p><%= @events.count %>件のイベントが見つかりました</p>
+      <% else %>
+        <h1><%= t('events.index.title') %></h1>
+      <% end %>
     </div>
   </div>
 

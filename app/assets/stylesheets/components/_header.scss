@@ -20,6 +20,10 @@
 .logo {
 	display: flex;
 	align-items: center;
+	flex-shrink: 0;
+	/* ロゴが縮まないようにする */
+	min-width: 150px;
+	/* ロゴの最小幅を設定 */
 }
 
 .logo a {
@@ -30,6 +34,8 @@
 	font-size: 1.25rem;
 	font-weight: 700;
 	color: #3490dc;
+	white-space: nowrap;
+	/* テキストが折り返されないようにする */
 }
 
 /* 未ログイン時のスタイル */
@@ -62,10 +68,12 @@
 
 .search-form {
 	position: relative;
-	width: 40%;
-	/* 幅を固定 */
-	margin: 0 auto;
-	/* 中央配置 */
+	flex: 1;
+	/* フレックスに対して成長する割合 */
+	max-width: 50%;
+	/* 検索フォームの最大幅 */
+	margin: 0 20px;
+	/* 左右のマージンを設定 */
 }
 
 .search-input {
@@ -100,6 +108,8 @@
 	align-items: center;
 	justify-content: center;
 	padding: 0.25rem;
+	flex-shrink: 0;
+	/* ボタンが縮まないようにする */
 }
 
 .navbar-toggler-icon {
