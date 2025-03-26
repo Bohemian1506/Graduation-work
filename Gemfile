@@ -68,4 +68,4 @@ gem "enum_help"
 gem "view_component"
 
 # 検索用のgem
-gem "ransack"
+gem 'ransack', '~> 3.0'
