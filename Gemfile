@@ -68,4 +68,4 @@ gem "enum_help"
 gem "view_component"
 
 # みんな大好き検索用のgem
-gem 'ransack'
+gem "ransack"
