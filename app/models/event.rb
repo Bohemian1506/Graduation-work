@@ -25,6 +25,6 @@ has_many :tasks, dependent: :destroy
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["capacity", "created_at", "event_date", "event_status", "id", "id_value", "location", "notes", "party_fee", "party_type", "store_name", "title", "updated_at", "user_id", "visibility"]
+    [ "capacity", "created_at", "event_date", "event_status", "id", "id_value", "location", "notes", "party_fee", "party_type", "store_name", "title", "updated_at", "user_id", "visibility" ]
   end
 end
