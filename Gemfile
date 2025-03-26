@@ -68,4 +68,4 @@ gem "enum_help"
 gem "view_component"
 
 # 検索用のgem
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem "ransack", github: "activerecord-hackery/ransack"
