@@ -67,5 +67,5 @@ gem "enum_help"
 # viewファイルのリファクタリング用
 gem "view_component"
 
-# みんな大好き検索用のgem
+# 検索用のgem
 gem "ransack"
