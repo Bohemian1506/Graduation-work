@@ -8,9 +8,9 @@
     
     <% if logged_in? %>
       <%= search_form_for @q, url: events_path, html: { class: "search-form" } do |f| %>
-      <i class="fas fa-search search-icon"></i>
-      <%= f.search_field :title_cont, class: "search-input", placeholder: "イベントを検索..." %>
-    <% end %>
+        <i class="fas fa-search search-icon"></i>
+        <%= f.search_field :title_cont, class: "search-input", placeholder: "イベントを検索..." %>
+      <% end %>
       
       
       <!-- ハンバーガーメニューボタン -->

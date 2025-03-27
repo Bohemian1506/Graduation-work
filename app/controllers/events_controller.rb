@@ -4,6 +4,21 @@ class EventsController < ApplicationController
   before_action :set_own_event, only: [ :edit, :update, :destroy ]  # 所有者のみ操作可能
   def index
     @q = Event.ransack(params[:q])
+
+      # 検索パラメータが存在する場合、複数フィールドに条件を適用
+      if params[:q] && params[:q][:title_cont].present?
+        keyword = params[:q][:title_cont]
+
+        # 複数のフィールドをORで検索するための条件を構築
+        @q = Event.ransack(
+          title_cont: keyword,
+          store_name_cont: keyword,
+          location_cont: keyword,
+          notes_cont: keyword,
+          m: "or"  # 'm: "or"'は条件をORで結合することを指定
+        )
+      end
+
     @events = @q.result(distinct: true)
   end
 
