@@ -8,14 +8,14 @@ class EventsController < ApplicationController
       # 検索パラメータが存在する場合、複数フィールドに条件を適用
       if params[:q] && params[:q][:title_cont].present?
         keyword = params[:q][:title_cont]
-        
+
         # 複数のフィールドをORで検索するための条件を構築
         @q = Event.ransack(
           title_cont: keyword,
           store_name_cont: keyword,
           location_cont: keyword,
           notes_cont: keyword,
-          m: 'or'  # 'm: "or"'は条件をORで結合することを指定
+          m: "or"  # 'm: "or"'は条件をORで結合することを指定
         )
       end
 
