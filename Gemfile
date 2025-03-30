@@ -69,3 +69,6 @@ gem "view_component"
 
 # 検索用のgem
 gem "ransack"
+
+# ページネーション用のgem
+gem "kaminari"
