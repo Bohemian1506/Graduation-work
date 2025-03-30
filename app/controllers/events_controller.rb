@@ -19,7 +19,7 @@ class EventsController < ApplicationController
         )
       end
 
-    @events = @q.result(distinct: true)
+    @events = @q.result(distinct: true).page(params[:page])
   end
 
   def show
