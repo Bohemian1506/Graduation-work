@@ -11,8 +11,14 @@
   </div>
 
   <% if @events.present? %>
+    <!-- 各種イベントカードを追加 -->
     <div class="row">
       <%= render @events %>
+    </div>
+
+    <!-- ページネーションリンクを追加 -->
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @events %>
     </div>
   <% else %>
     <div class="alert alert-info">
