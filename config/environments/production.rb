@@ -103,6 +103,11 @@ Rails.application.configure do
   # メール用の設定
   config.action_mailer.default_url_options = { host: "yan-hui-todo.onrender.com" }
   config.action_mailer.delivery_method = :smtp
+
+  # メール送信エラーを確認するための設定（デバッグ目的）
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.smtp_settings = {
   address:              "smtp.gmail.com",  # 使用するSMTPサーバー
   port:                 587,
