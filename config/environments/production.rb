@@ -101,15 +101,15 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # メール用の設定
-  config.action_mailer.default_url_options = { host: 'yan-hui-todo.onrender.com' }
+  config.action_mailer.default_url_options = { host: "yan-hui-todo.onrender.com" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',  # 使用するSMTPサーバー
+  address:              "smtp.gmail.com",  # 使用するSMTPサーバー
   port:                 587,
-  domain:               'yan-hui-todo.onrender.com',
-  user_name:            'yanhuitodotodo@gmail.com',
-  password:             'enkaibanzai2025',
-  authentication:       'plain',
+  domain:               "yan-hui-todo.onrender.com",
+  user_name:            Rails.application.credentials.gmail[:username],
+  password:             Rails.application.credentials.gmail[:password],
+  authentication:       "plain",
   enable_starttls_auto: true
 }
 end
