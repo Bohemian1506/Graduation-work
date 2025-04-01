@@ -13,6 +13,12 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @clipboard_text = @event.formatted_text_for_clipboard
+    # ログイン状態に応じて表示するコンポーネントを決定
+    @todo_component = if user_signed_in?
+                        Events::Todo::ListComponent.new(event: @event, current_user: current_user)
+                      else
+                        Events::Todo::LoginPromptComponent.new
+                      end
   end
 
   def new
