@@ -112,8 +112,8 @@ Rails.application.configure do
   address:              "smtp.gmail.com",  # 使用するSMTPサーバー
   port:                 587,
   domain:               "yan-hui-todo.onrender.com",
-  user_name:            Rails.application.credentials.gmail[:username],
-  password:             Rails.application.credentials.gmail[:password],
+  user_name:            ENV['GMAIL_USERNAME'],
+  password:             ENV['GMAIL_PASSWORD'],
   authentication:       "plain",
   enable_starttls_auto: true
 }
