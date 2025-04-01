@@ -8,4 +8,9 @@ class Events::Todo::ListComponent < ViewComponent::Base
     @unfinished_tasks = event.tasks.unfinished
     @finished_tasks = event.tasks.finished
   end
+
+  # このコンポーネントをレンダリングする条件
+  def render?
+    @current_user.present?  # ユーザーがログインしている場合のみ表示
+  end
 end

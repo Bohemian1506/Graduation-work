@@ -34,7 +34,7 @@
       </div>
       
       <!-- TODOリストカード -->
-      <%= render(Events::Todo::ListComponent.new(event: @event, current_user: current_user)) %>
+      <%= render @todo_component %>
       
       <!-- 戻るボタン -->
       <div class="mb-4">
