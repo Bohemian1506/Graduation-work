@@ -16,9 +16,9 @@ class EventsController < ApplicationController
     # ログイン状態に応じて表示するコンポーネントを決定
     @todo_component = if user_signed_in?
                         Events::Todo::ListComponent.new(event: @event, current_user: current_user)
-                      else
+    else
                         Events::Todo::LoginPromptComponent.new
-                      end
+    end
   end
 
   def new
