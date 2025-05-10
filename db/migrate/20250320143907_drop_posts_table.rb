@@ -1,6 +1,6 @@
 class DropPostsTable < ActiveRecord::Migration[7.2]
   def up
-    drop_table :posts
+    drop_table :posts if table_exists?(:posts)
   end
 
   def down
