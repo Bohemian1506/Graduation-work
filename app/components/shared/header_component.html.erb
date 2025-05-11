@@ -13,27 +13,17 @@
       <% end %>
       
       
-      <!-- ハンバーガーメニューボタン -->
-      <button class="navbar-toggler hamburger-menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- ドロップダウンメニュー -->
-      <div class="collapse navbar-collapse dropdown-menu-container" id="navbarDropdown">
-        <ul class="navbar-nav ms-auto dropdown-menu">
-          <li class="nav-item dropdown-menu-item">
-            <%= link_to "イベント一覧", events_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown-menu-item">
-            <%= link_to "イベント作成", new_event_path, class: "nav-link" %>
-          </li>
-          <li class="dropdown-divider"></li>
-          <li class="nav-item dropdown-menu-item">
-            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link", form: { data: { turbo: true } } %>
-          </li>
+      <div class="dropdown">
+        <button class="btn btn-link p-0" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-bars fs-5"></i> <!-- Font Awesomeのハンバーガーアイコン -->
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><%= link_to "イベント一覧", events_path, class: "dropdown-item" %></li>
+          <li><%= link_to "イベント作成", new_event_path, class: "dropdown-item" %></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>
         </ul>
       </div>
-
     <% else %>
       <%= link_to "ログイン", new_user_session_path, class: "login-button" %>
     <% end %>
