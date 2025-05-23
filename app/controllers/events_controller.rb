@@ -76,7 +76,7 @@ class EventsController < ApplicationController
   def sanitize_page_param(page_param)
     # page_paramが空白かチェック、空白なら1を代入してメソッド終了
     return 1 if page_param.blank?
-    
+
     # page_paramの文字列を整数にしてpage_numberに代入
     page_number = page_param.to_i
     # page_numberが0以下なら1を代入する
