@@ -74,4 +74,4 @@ gem "ransack"
 gem "kaminari"
 
 # 言語の翻訳データを提供するgem
-gem 'rails-i18n', '~> 7.0.0'
+gem "rails-i18n", "~> 7.0.0"
