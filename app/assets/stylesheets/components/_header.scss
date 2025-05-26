@@ -1,166 +1,47 @@
-/* ヘッダー共通スタイル */
-.header {
-	background-color: white;
-	height: 60px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	position: relative;
-	z-index: 100;
-}
+/* app/assets/stylesheets/components/_header.scss */
 
-.header-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 100%;
-	padding: 0 20px;
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
-.logo {
-	display: flex;
-	align-items: center;
-	flex-shrink: 0;
-	/* ロゴが縮まないようにする */
-	min-width: 150px;
-	/* ロゴの最小幅を設定 */
-}
-
-.logo a {
-	text-decoration: none;
-}
-
-.logo h1 {
-	font-size: 1.25rem;
+/* Bootstrap標準navbarのカスタマイズ */
+.navbar-brand {
+	font-size: 1.5rem;
 	font-weight: 700;
-	color: #3490dc;
-	white-space: nowrap;
-	/* テキストが折り返されないようにする */
-}
-
-/* 未ログイン時のスタイル */
-.header-not-logged-in .header-container {
-	justify-content: space-between;
-}
-
-.login-button {
-	background-color: #3490dc;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 8px 16px;
-	font-weight: 500;
-	cursor: pointer;
+	color: #3490dc !important;
 	text-decoration: none;
-	transition: background-color 0.3s;
-}
-
-.login-button:hover {
-	background-color: #2779bd;
-}
-
-/* ログイン済みのスタイル - 修正版 */
-.header-logged-in .header-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.search-form {
-	position: relative;
-	flex: 1;
-	/* フレックスに対して成長する割合 */
-	max-width: 50%;
-	/* 検索フォームの最大幅 */
-	margin: 0 20px;
-	/* 左右のマージンを設定 */
-}
-
-.search-input {
-	width: 100%;
-	padding: 8px 12px;
-	padding-left: 36px;
-	border: 1px solid #e2e8f0;
-	border-radius: 4px;
-	font-size: 0.875rem;
-	transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.search-input:focus {
-	outline: none;
-	border-color: #3490dc;
-	box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.25);
-}
-
-.search-icon {
-	position: absolute;
-	left: 12px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #a0aec0;
-}
-
-.hamburger-menu {
-	background: none;
-	border: none;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0.25rem;
 	flex-shrink: 0;
-	/* ボタンが縮まないようにする */
+	min-width: 120px;
 }
 
+.navbar-brand:hover {
+	color: #2779bd !important;
+}
+
+/* ハンバーガーボタンの見た目改善 */
+.navbar-toggler {
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: rgba(248, 249, 250, 0.8);
+	padding: 0.375rem 0.5rem;
+}
+
+.navbar-toggler:hover {
+	background-color: rgba(233, 236, 239, 0.8);
+}
+
+.navbar-toggler:focus {
+	box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* ハンバーガーアイコンの色を濃くする */
 .navbar-toggler-icon {
-	display: inline-block;
-	width: 1.5em;
-	height: 1.5em;
-	vertical-align: middle;
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* ドロップダウンメニュー */
-.dropdown-menu-container {
-	position: absolute;
-	top: 60px;
-	right: 0;
-	width: 200px;
-	z-index: 1000;
+/* 検索フォームの調整 */
+.navbar .input-group {
+	max-width: 400px;
+	min-width: 250px;
 }
 
-.dropdown-menu {
-	background-color: white;
-	border-radius: 4px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	padding: 0.5rem 0;
-	list-style: none;
-	margin: 0;
-}
-
-.dropdown-menu-item {
-	padding: 0;
-}
-
-.dropdown-menu-item .nav-link {
-	display: block;
-	padding: 0.5rem 1rem;
-	color: #333;
-	text-decoration: none;
-	transition: background-color 0.2s;
-}
-
-.dropdown-menu-item .nav-link:hover {
-	background-color: #f8f9fa;
-	color: #0d6efd;
-}
-
-.dropdown-divider {
-	height: 0;
-	margin: 0.5rem 0;
-	overflow: hidden;
-	border-top: 1px solid #e9ecef;
-}
+/* レスポンシブ調整 */
+@media (min-width: 1400px) {
+	.navbar .input-group {
+		max-width: 500px;
+	} }

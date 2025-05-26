@@ -1,41 +1,44 @@
-<header class="header <%= logged_in? ? 'header-logged-in' : 'header-not-logged-in' %>">
-  <div class="header-container">
-    <div class="logo">
-      <a href="/">
-        <h1>宴会TO DO</h1>
-      </a>
-    </div>
-    
+<!-- 常にハンバーガーメニューを表示する場合 -->
+<nav class="navbar navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-3">
+    <!-- ブランド/ロゴ -->
+    <a class="navbar-brand fw-bold text-primary" href="/">
+      宴会TO DO
+    </a>
+
     <% if logged_in? %>
-      <%= search_form_for @q, url: events_path, html: { class: "search-form" } do |f| %>
-        <i class="fas fa-search search-icon"></i>
-        <%= f.search_field :title_cont, class: "search-input", placeholder: "イベントを検索..." %>
-      <% end %>
-      
-      
-      <!-- ハンバーガーメニューボタン -->
-      <button class="navbar-toggler hamburger-menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- ハンバーガーメニューボタン（常に表示） -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- ドロップダウンメニュー -->
-      <div class="collapse navbar-collapse dropdown-menu-container" id="navbarDropdown">
-        <ul class="navbar-nav ms-auto dropdown-menu">
-          <li class="nav-item dropdown-menu-item">
+      <!-- 折りたたみメニュー -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- 検索フォーム -->
+        <%= search_form_for @q, url: events_path, html: { class: "mb-3" } do |f| %>
+          <div class="input-group">
+            <%= f.search_field :title_cont, class: "form-control", placeholder: "イベントを検索..." %>
+            <button class="btn btn-outline-secondary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        <% end %>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
             <%= link_to "イベント一覧", events_path, class: "nav-link" %>
           </li>
-          <li class="nav-item dropdown-menu-item">
+          <li class="nav-item">
             <%= link_to "イベント作成", new_event_path, class: "nav-link" %>
           </li>
-          <li class="dropdown-divider"></li>
-          <li class="nav-item dropdown-menu-item">
-            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link", form: { data: { turbo: true } } %>
+          <li class="nav-item">
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link btn btn-link", form: { data: { turbo: true } } %>
           </li>
         </ul>
       </div>
 
     <% else %>
-      <%= link_to "ログイン", new_user_session_path, class: "login-button" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %>
     <% end %>
   </div>
-</header>
+</nav>

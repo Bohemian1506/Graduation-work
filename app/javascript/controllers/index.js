@@ -9,3 +9,6 @@ application.register("clipboard", ClipboardController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import HamburgerController from "./hamburger_controller"
+application.register("hamburger", HamburgerController)
