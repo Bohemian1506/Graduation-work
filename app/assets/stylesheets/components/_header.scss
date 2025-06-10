@@ -45,3 +45,17 @@
 	.navbar .input-group {
 		max-width: 500px;
 	} }
+
+.search-form {
+	.input-group {
+		.btn {
+			min-width: 45px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.bi {
+			font-size: 16px;
+		}
+	}}

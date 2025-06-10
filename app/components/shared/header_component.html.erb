@@ -9,11 +9,11 @@
       </a>
 
       <!-- 検索フォーム（常に表示・横に長くする） -->
-      <%= search_form_for @q, url: events_path, html: { class: "flex-grow-1 mx-3" } do |f| %>
+      <%= search_form_for @q, url: events_path, html: {  class: "w-100", style: "max-width: 500px;" } do |f| %>
         <div class="input-group">
           <%= f.search_field :title_cont, class: "form-control", placeholder: "イベントを検索..." %>
           <button class="btn btn-outline-secondary" type="submit">
-            <i class="fas fa-search"></i>
+            <i class="bi bi-search"></i>
           </button>
         </div>
       <% end %>
