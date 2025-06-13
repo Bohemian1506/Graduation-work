@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_22_141129) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_13_135013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_organizers", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id"
+    t.integer "role", default: 1, null: false
+    t.integer "status", default: 0, null: false
+    t.string "invitation_token", null: false
+    t.string "invited_email", null: false
+    t.datetime "invited_at"
+    t.datetime "accepted_at"
+    t.datetime "declined_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id", "invited_email"], name: "index_event_organizers_on_event_and_email", unique: true, where: "(user_id IS NULL)"
+    t.index ["event_id", "user_id"], name: "index_event_organizers_on_event_and_user", unique: true, where: "(user_id IS NOT NULL)"
+    t.index ["event_id"], name: "index_event_organizers_on_event_id"
+    t.index ["invitation_token"], name: "index_event_organizers_on_invitation_token", unique: true
+    t.index ["user_id"], name: "index_event_organizers_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
@@ -73,6 +92,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_22_141129) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "event_organizers", "events"
+  add_foreign_key "event_organizers", "users"
   add_foreign_key "events", "users"
   add_foreign_key "task_assignments", "tasks", column: "assignable_id"
   add_foreign_key "task_assignments", "users"
